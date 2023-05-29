@@ -4,6 +4,7 @@ from functools import cached_property
 
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.conf import settings
 from django.core.validators import ValidationError
 from django.db import models
 from django.db.models.signals import class_prepared
@@ -228,7 +229,11 @@ class CustomFieldsMixin(models.Model):
         for cf in visible_custom_fields:
             value = self.custom_field_data.get(cf.name)
             value = cf.deserialize(value)
-            groups[cf.group_name][cf] = value
+            if settings.SHOW_UNSET_CUSTOM_FIELDS:
+                groups[cf.group_name][cf] = value
+            else:
+                if not value == None: # we want to include false, boolean fields can be set to false
+                    groups[cf.group_name][cf] = value
 
         return dict(groups)
 

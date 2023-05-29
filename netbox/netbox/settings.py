@@ -161,6 +161,7 @@ STORAGE_CONFIG = getattr(configuration, 'STORAGE_CONFIG', {})
 TIME_FORMAT = getattr(configuration, 'TIME_FORMAT', 'g:i a')
 TIME_ZONE = getattr(configuration, 'TIME_ZONE', 'UTC')
 ENABLE_LOCALIZATION = getattr(configuration, 'ENABLE_LOCALIZATION', False)
+SHOW_UNSET_CUSTOM_FIELDS = getattr(configuration, 'SHOW_UNSET_CUSTOM_FIELDS', True)
 
 # Check for hard-coded dynamic config parameters
 for param in PARAMS:
