@@ -455,7 +455,11 @@ export class APISelect {
     let options = [] as Option[];
 
     for (const result of data.results) {
-      let text = encode(result.display);
+      let text = encode(`${result.display}`);
+
+      if('alt_display_name' in result) {
+        text = encode(`${result.alt_display_name}`)
+      }
 
       if (typeof result._depth === 'number' && result._depth > 0) {
         // If the object has a `_depth` property, indent its display text.

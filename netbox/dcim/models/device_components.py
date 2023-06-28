@@ -883,6 +883,10 @@ class Interface(ModularComponentModel, BaseInterface, CabledObjectModel, PathEnd
     def l2vpn_termination(self):
         return self.l2vpn_terminations.first()
 
+    @property
+    def alt_display_name(self):
+        return f"{self.name} ({self.device})"
+
 
 #
 # Pass-through ports

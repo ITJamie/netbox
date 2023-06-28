@@ -389,7 +389,7 @@ class NestedInterfaceSerializer(WritableNestedSerializer):
 
     class Meta:
         model = models.Interface
-        fields = ['id', 'url', 'display', 'device', 'name', 'cable', '_occupied']
+        fields = ['id', 'url', 'display', 'device', 'name', 'cable', '_occupied', 'alt_display_name']
 
 
 class NestedRearPortSerializer(WritableNestedSerializer):

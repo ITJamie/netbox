@@ -911,6 +911,7 @@ class InterfaceSerializer(NetBoxModelSerializer, CabledObjectSerializer, Connect
         allow_null=True
     )
     wwn = serializers.CharField(required=False, default=None, allow_blank=True, allow_null=True)
+    alt_display_name = serializers.CharField(read_only=True)
 
     class Meta:
         model = Interface
