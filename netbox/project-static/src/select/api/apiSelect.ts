@@ -455,7 +455,7 @@ export class APISelect {
     let options = [] as Option[];
 
     for (const result of data.results) {
-      let text = encode(`${result.display}`);
+      let text = encode(result.display);
 
       if('alt_display_name' in result) {
         text = encode(`${result.alt_display_name}`)
