@@ -348,6 +348,7 @@ class ObjectDeleteView(GetReturnURLMixin, BaseObjectView):
 
         return render(request, self.template_name, {
             'object': obj,
+            'object_type': obj._meta.verbose_name,
             'form': form,
             'return_url': self.get_return_url(request, obj),
             **self.get_extra_context(request, obj),
