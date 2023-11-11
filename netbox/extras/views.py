@@ -17,6 +17,7 @@ from extras.dashboard.forms import DashboardWidgetAddForm, DashboardWidgetForm
 from extras.dashboard.utils import get_widget_class
 from netbox.config import get_config, PARAMS
 from netbox.views import generic
+from utilities.dict_differ import recursive_diff
 from utilities.forms import ConfirmationForm, get_field_value
 from utilities.htmx import is_htmx
 from utilities.paginator import EnhancedPaginator, get_paginate_count
@@ -669,9 +670,14 @@ class ObjectChangeView(generic.ObjectView):
             diff_removed = {
                 x: prechange_data.get(x) for x in diff_added
             } if prechange_data else {}
+            recursive_dict_obj = recursive_diff(
+                prechange_data or dict(), 
+                instance.postchange_data or dict(),
+            )
         else:
             diff_added = None
             diff_removed = None
+            recursive_dict_obj = None
 
         return {
             'diff_added': diff_added,
@@ -680,7 +686,8 @@ class ObjectChangeView(generic.ObjectView):
             'prev_change': prev_change,
             'related_changes_table': related_changes_table,
             'related_changes_count': related_changes.count(),
-            'non_atomic_change': non_atomic_change
+            'non_atomic_change': non_atomic_change,
+            'recursive_dict_obj': recursive_dict_obj,
         }
 
 
