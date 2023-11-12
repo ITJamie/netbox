@@ -254,11 +254,11 @@ def styled_diff(old, new):
     old.pop("last_updated")
     new.pop("last_updated")
 
-    old = yaml.dump(old, sort_keys=False)
-    new = yaml.dump(new, sort_keys=False)
+    # old = yaml.dump(old, sort_keys=False)
+    # new = yaml.dump(new, sort_keys=False)
 
-    # old = json.dumps(old, indent=2)
-    # new = json.dumps(new, indent=2)
+    old = json.dumps(old, indent=2)
+    new = json.dumps(new, indent=2)
     codeDiff = CodeDiff(old, new)
     return codeDiff.format()
     
