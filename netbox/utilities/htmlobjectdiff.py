@@ -154,19 +154,10 @@ class DiffHtmlFormatter(HtmlFormatter):
 
         ls = ''.join(lines)
 
-        # in case you wonder about the seemingly redundant <div> here: since the
-        # content in the other cell also is wrapped in a div, some browsers in
-        # some configurations seem to mess up the formatting...
-        if nocls:
-            yield 0, (f'<table width="100%" class="{self.cssclass}">' +
-                      '<tr><td><div class="linenodiv" '
-                      'style="background-color: #f0f0f0; padding-right: 10px">'
-                      '<pre style="line-height: 125%">' +
-                      ls + '</pre></div></td><td class="code">')
-        else:
-            yield 0, (f'<table width="100%" class="{self.cssclass}">' +
-                      '<tr><td class="linenos"><div class="linenodiv"><pre>' +
-                      ls + '</pre></div></td><td class="code">')
+
+        yield 0, (f'<table width="100%" class="{self.cssclass}"><tr>' +
+                #   '<td class="linenos"><div class="linenodiv"><pre>' + # not using lineno's
+                    ls + '</pre></div></td><td class="code">')
         yield 0, dummyoutfile.getvalue()
         yield 0, '</td></tr></table>'
 
@@ -250,9 +241,10 @@ def styled_diff(old, new):
     returns styled output
     """
     
-    
-    old.pop("last_updated")
-    new.pop("last_updated")
+    if "last_updated" in old:
+        old.pop("last_updated") 
+    if "last_updated" in new:
+        new.pop("last_updated")
 
     # old = yaml.dump(old, sort_keys=False)
     # new = yaml.dump(new, sort_keys=False)

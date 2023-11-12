@@ -661,7 +661,11 @@ class ObjectChangeView(generic.ObjectView):
         else:
             non_atomic_change = False
             prechange_data = instance.prechange_data
-
+        
+        leftrightdiffhtml = styled_diff(
+            prechange_data or dict(), 
+            instance.postchange_data or dict(),
+        )
         if prechange_data and instance.postchange_data:
             diff_added = shallow_compare_dict(
                 prechange_data or dict(),
@@ -672,10 +676,6 @@ class ObjectChangeView(generic.ObjectView):
                 x: prechange_data.get(x) for x in diff_added
             } if prechange_data else {}
             recursive_dict_obj = recursive_diff(
-                prechange_data or dict(), 
-                instance.postchange_data or dict(),
-            )
-            leftrightdiffhtml = styled_diff(
                 prechange_data or dict(), 
                 instance.postchange_data or dict(),
             )

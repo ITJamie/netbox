@@ -77,10 +77,13 @@ def recursive_diff(past_dict, current_dict, ignore_missing_keys=False):
         not contain the missing keys.
         Default is True.
     """
+    if "last_updated" in past_dict:
+        past_dict.pop("last_updated") 
+    if "last_updated" in current_dict:
+        current_dict.pop("last_updated")
     return RecursiveDictDiffer(past_dict, 
                                current_dict, 
-                               ignore_missing_keys, 
-                               ignore_specific_key = "last_updated"
+                               ignore_missing_keys
                                )
 
 
@@ -127,7 +130,7 @@ class RecursiveDictDiffer(DictDiffer):
 
     NONE_VALUE = "<_null_>"
 
-    def __init__(self, past_dict, current_dict, ignore_missing_keys, ignore_specific_key=None):
+    def __init__(self, past_dict, current_dict, ignore_missing_keys):
         """
         past_dict
             Past dictionary.
@@ -144,10 +147,8 @@ class RecursiveDictDiffer(DictDiffer):
         self._diffs = self._get_diffs(
             self.current_dict, self.past_dict, ignore_missing_keys
         )
-        self._diffs.pop(ignore_specific_key)
         # Ignores unet values when assessing the changes
         self.ignore_unset_values = True
-        self.ignore_specific_key = ignore_specific_key
 
     @classmethod
     def _get_diffs(cls, dict1, dict2, ignore_missing_keys):
