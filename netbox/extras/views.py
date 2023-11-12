@@ -19,6 +19,7 @@ from netbox.config import get_config, PARAMS
 from netbox.views import generic
 from utilities.dict_differ import recursive_diff
 from utilities.forms import ConfirmationForm, get_field_value
+from utilities.htmlobjectdiff import styled_diff
 from utilities.htmx import is_htmx
 from utilities.paginator import EnhancedPaginator, get_paginate_count
 from utilities.rqworker import get_workers_for_queue
@@ -674,6 +675,10 @@ class ObjectChangeView(generic.ObjectView):
                 prechange_data or dict(), 
                 instance.postchange_data or dict(),
             )
+            leftrightdiffhtml = styled_diff(
+                prechange_data or dict(), 
+                instance.postchange_data or dict(),
+            )
         else:
             diff_added = None
             diff_removed = None
@@ -688,6 +693,7 @@ class ObjectChangeView(generic.ObjectView):
             'related_changes_count': related_changes.count(),
             'non_atomic_change': non_atomic_change,
             'recursive_dict_obj': recursive_dict_obj,
+            'leftrightdiffhtml': leftrightdiffhtml,
         }
 
 

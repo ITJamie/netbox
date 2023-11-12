@@ -148,6 +148,34 @@
         </div>
     </div>
 </div>
+
+<div class="row mb-3">
+    <div class="col col-md-6">
+        <div class="card">
+            <h5 class="card-header">
+                {% trans "Pre-Change Data" %}
+            </h5>
+            <div class="card-body">
+                <pre class="change-data">
+                    {{ leftrightdiffhtml.left |safe }}
+                </pre>
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-6">
+        <div class="card">
+            <h5 class="card-header">
+                {% trans "Post-Change Data" %}
+            </h5>
+            <div class="card-body">
+                <pre class="change-data">
+                    {{ leftrightdiffhtml.right |safe }}
+                </pre>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row mb-3">
     <div class="col col-md-12">
         {% include 'inc/panel_table.html' with table=related_changes_table heading='Related Changes' panel_class='default' %}

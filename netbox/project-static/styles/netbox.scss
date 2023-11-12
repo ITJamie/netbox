@@ -881,6 +881,34 @@ pre.change-data {
   }
 }
 
+span.left_diff_change {
+  background-color: var(--nbx-change-changed);
+  display: block
+}
+span.left_diff_add {
+  background-color: #B1B1B1;
+  display: block
+}
+span.left_diff_del {
+  background-color: var(--nbx-change-removed);
+  display: block
+}
+span.lineno_q {
+  display: block;
+}
+span.right_diff_change {
+  background-color: var(--nbx-change-changed);
+  display: block
+}
+span.right_diff_add {
+  background-color: var(--nbx-change-added);
+  display: block
+}
+span.right_diff_del {
+  background-color: var(--nbx-change-removed);
+  display: block
+}
+
 pre.change-diff {
   border-color: transparent;
 
